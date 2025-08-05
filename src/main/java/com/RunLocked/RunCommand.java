@@ -21,7 +21,7 @@ public class RunCommand implements Runnable {
 		processBuilder.command("cmd.exe", "/c", command);
 		try {
 			for(int i =0; i < times; i++){
-				Thread.sleep(1500); // Pause .25 seconds to let the command process.
+				Thread.sleep(2000); // Pause .25 seconds to let the command process.
 				processBuilder.start();
 			}
 		} catch (InterruptedException e) {
