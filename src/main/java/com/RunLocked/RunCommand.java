@@ -17,11 +17,11 @@ public class RunCommand implements Runnable {
 		adjustSpeed(command, times);
 	}
 
-	private void adjustSpeed(String command, int times){
+	public void adjustSpeed(String command, int times){
 		processBuilder.command("cmd.exe", "/c", command);
 		try {
 			for(int i =0; i < times; i++){
-				Thread.sleep(2000); // Pause .25 seconds to let the command process.
+				Thread.sleep(2000); // Pause 1 second to let the command process.
 				processBuilder.start();
 			}
 		} catch (InterruptedException e) {
