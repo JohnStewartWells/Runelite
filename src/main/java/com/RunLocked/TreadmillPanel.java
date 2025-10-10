@@ -1,38 +1,20 @@
 package com.RunLocked;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.Map;
-import javax.imageio.ImageIO;
-import javax.inject.Inject;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.Skill;
-import net.runelite.client.config.ConfigManager;
-import net.runelite.client.game.ItemManager;
-import net.runelite.client.game.SkillIconManager;
-import net.runelite.client.ui.ColorScheme;
-import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.PluginPanel;
-import net.runelite.client.util.ImageUtil;
 
-import java.awt.event.MouseAdapter;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.RunLocked.RunlockPlugin.updateMiles;
 
-
 @Slf4j
 public class TreadmillPanel extends PluginPanel {
 
+    static boolean isStopped = true;
     static Timer timer;
     TimerTask task = new TimerTask() {
         @Override
@@ -52,7 +34,7 @@ public class TreadmillPanel extends PluginPanel {
         return task;
     }
 
-    public TreadmillPanel(CommandConfig config) throws IOException {
+    public TreadmillPanel(CommandConfig config) {
         super();
 
         Dimension buttonSize = new Dimension(150, 80);
@@ -86,10 +68,18 @@ public class TreadmillPanel extends PluginPanel {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-                if(text.equals("Stop") && timer != null)
-                    timer.cancel();
-                if(text.equals("Start"))
+                if(text.equals("Stop")){
+                    isStopped = true;
+                    if(timer != null)
+                        timer.cancel();
+                }
+                else if(text.equals("Start")){
+                    isStopped = false;
+                    //in case we accidentally hit start more than once, we only want 1 timer.
+                    if(timer != null)
+                        timer.cancel();
                     createTimer();
+                }
             });
         });
         return button;
@@ -99,8 +89,6 @@ public class TreadmillPanel extends PluginPanel {
         timer = new Timer();
         timer.schedule(getNewTask(), 14400, 14400);
     }
-
-
 
 }
 

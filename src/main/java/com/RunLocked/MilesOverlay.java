@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 
 import static com.RunLocked.RunlockPlugin.getMiles;
 import static com.RunLocked.RunlockPlugin.isRunning;
+import static com.RunLocked.TreadmillPanel.isStopped;
 
 
 public class MilesOverlay extends Overlay {
@@ -21,7 +22,7 @@ public class MilesOverlay extends Overlay {
     private DecimalFormat df = new DecimalFormat("#.##");
     private final PanelComponent panelComponent = new PanelComponent();
 
-    public MilesOverlay(double miles) {
+    public MilesOverlay() {
         setPosition(OverlayPosition.TOP_LEFT); // Set the default position
         setResizable(true); // Allow the overlay to be resized
         setPreferredSize(new Dimension(300, 100)); // Set preferred size
@@ -36,7 +37,7 @@ public class MilesOverlay extends Overlay {
                 .text("Total Miles: " + df.format(getMiles()))
                 .build());
         panelComponent.getChildren().add(TitleComponent.builder()
-                .text("Current Speed: " +( isRunning?"5 mph":"2.5 mph" ))
+                .text("Current Speed: " +( isStopped? "0 mph" :isRunning?"5 mph":"2.5 mph" ))
                 .build());
 
 

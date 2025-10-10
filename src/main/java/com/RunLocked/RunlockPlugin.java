@@ -60,7 +60,7 @@ public class RunlockPlugin extends Plugin
 		initMiles();
 		overlayManager.add(weightOverlay);
 		pluginPanel = new TreadmillPanel(config);
-		overlayManager.add(new MilesOverlay(miles));
+		overlayManager.add(new MilesOverlay());
 		navButton = NavigationButton.builder()
 				.tooltip("Treadmill")
 				.icon(image)
