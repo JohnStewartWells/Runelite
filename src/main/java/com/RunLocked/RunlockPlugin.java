@@ -74,6 +74,7 @@ public class RunlockPlugin extends Plugin
 	@Override
 	protected void shutDown() throws Exception{
 		overlayManager.remove(weightOverlay);
+		thread.interrupt();
 		saveMiles();
 	}
 
@@ -82,6 +83,7 @@ public class RunlockPlugin extends Plugin
 	{
 		if (gameStateChanged.getGameState() == GameState.LOGIN_SCREEN)
 		{
+			thread.interrupt();
 			saveMiles();
 		}
 	}
