@@ -24,6 +24,9 @@ public class WeightOverlay extends Overlay {
 
     @Override
     public Dimension render(Graphics2D graphics) {
+        int weight = client.getWeight();
+        int weightInLbs = Math.toIntExact(Math.round((weight * 2.20462)));
+        String weightStr = weight + " Kg. / " + weightInLbs + "Lbs.";
         panelComponent.getChildren().clear(); // Clear previous content
 
         // Add content to the overlay
@@ -31,8 +34,7 @@ public class WeightOverlay extends Overlay {
                 .text("Current Weight:")
                 .build());
         panelComponent.getChildren().add(TitleComponent.builder()
-                .text(client.getWeight() + " Kg.")
-                .build());
+                .text(weightStr).build());
 
         return panelComponent.render(graphics); // Render the panel component
     }
